@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+    data:
+        image: postgres-data-container
+        volumes:
+            - /var/lib/postgresql/data
+    postgres:
+        image: postgres
+        environment:
+            - POSTGRES_PASSWORD=codefordc
+            - POSTGRES_USER=codefordc
+            - POSTGRES_DB=codefordc
+        links:
+            - data
+        volumes_from: 
+            - data
+    web:
+        image: sosedoff/pgweb
+        environment:
+            - DATABASE_URL=postgres://codefordc:codefordc@postgres:5432/codefordc?sslmode=disable
+        links:
+            - postgres
+        ports:
+            - "8081:8081"
