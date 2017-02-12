@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+    postgres:
+        image: postgres
+        environment:
+            - POSTGRES_PASSWORD=codefordc
+            - POSTGRES_USER=codefordc
+            - POSTGRES_DB=codefordc
+    web:
+        image: sosedoff/pgweb
+        environment:
+            - DATABASE_URL=postgres://codefordc:codefordc@postgres:5432/codefordc?sslmode=disable
+        links:
+            - postgres
+        ports:
+            - "8081:8081"
