@@ -2,7 +2,7 @@ version: '2'
 
 services:
     postgres:
-        image: postgres
+        image: codefordc2/postgres
         environment:
             - POSTGRES_PASSWORD=codefordc
             - POSTGRES_USER=codefordc
