@@ -49,19 +49,21 @@ the repository's setting page on github.com.  In the _Github Pages_ section, set
 The second image in this directory is one that can help serving jekyll with the live reloading.  There are
 two options for using it.
 
-1. It can be used out of the box by pulling the image.  Please note this will work only if your
-jekyll project is only using the vanilla install and does not rely on other plugins that would have been 
-installed via gem.  
+1. If your jekyll site is using additional gem plugins, you can use the docker file and build your own image.
+    1. Copy `jekyll/Dockerfile` into the root of your repository repository where the jekyll site was installed
+    2. Run `docker build . -t codefordc2/{mysite}` (substitute the name of your repository)
+    3. Run `docker run --volume $(pwd)/docs:/srv/jekyll -p  127.0.0.1:4000:4000 codefordc2/{mysite}`
+    4. You're site will now be running and you can access it at http://127.0.0.1:4000 and all changes will be live reloaded
+    - If you have issues installing gems, one possible solution is to add source 'https://rubygems.org' to your Gemfile
+
+2. It can be used out of the box by pulling the image.  Please note this will work only if your jekyll project is only using the vanilla install and does not rely on other plugins that would have been 
+installed via gem.  *This will most likely only work for jekyll sites created via the jekyll-builder image.*
     1. Run `docker pull codefordc2/jekyll-serve:release`
     2. Navigate to where you built your jekyll site
     3. Run `docker run --volume $(pwd)/docs:/srv/jekyll -p  127.0.0.1:4000:4000 codefordc2/jekyll-serve`
     4. You're site will now be running and you can access it at http://127.0.0.1:4000 and all changes will be live reloaded
 
-2. If your jekyll site is using additional gem plugins, you can use the docker file and build your own image.
-    1. Copy `jekyll/Dockerfile` into your repository where the site was installed
-    2. Run `docker build . -t mysite` (substitute the name of your repository)
-    3. Run `docker run --volume $(pwd)/docs:/srv/jekyll -p  127.0.0.1:4000:4000 mysite`
-    4. You're site will now be running and you can access it at http://127.0.0.1:4000 and all changes will be live reloaded
+
 
 
 

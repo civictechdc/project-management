@@ -17,12 +17,15 @@ data.
 
 ### Steps to get started (assumes you have access to an existing Postgres database)
 
-1. Run `pg_dump --no-owner --no-privileges -F c -f data.dump  --db {insert your database}`
+1. Run `pg_dump --no-owner --no-privileges -F c -f data.dump  --dbname {insert your database}`
+    - alternatively you can use the full connection string `pg_dump --no-owner --no-privileges -F c -f data.dump --dbname=postgresql://postgres:postgres@localhost:5433/housinginsights_lo`
 2. Copy the file, `data.dump` into this directory.
 3. Run `docker build . -t codefordc2/{your-project}-postgres`
 
 Thats it.  You have now created a reusable docker container with your project's data that can
-be shared with your team.
+be shared with your team. To run it:
+
+`docker run -p  127.0.0.1:5432:5432 codefordc2/{your-project}-postgres`
 
 
 ## Sample docker-compose.yml
