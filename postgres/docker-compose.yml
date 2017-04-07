@@ -7,6 +7,9 @@ services:
             - POSTGRES_PASSWORD=codefordc
             - POSTGRES_USER=codefordc
             - POSTGRES_DB=codefordc
+        ports:
+            - "5432:5432"
+        restart: "on-failure:3"
     web:
         image: sosedoff/pgweb
         environment:
@@ -15,3 +18,4 @@ services:
             - postgres
         ports:
             - "8081:8081"
+        restart: "on-failure:10"
