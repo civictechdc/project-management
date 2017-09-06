@@ -9,7 +9,13 @@ The second part is a sample docker-compose.yml that will serve as example of how
 an instance of the postgres database with the data and a postgres web client that can be 
 used to manipulate and query the data.
 
-## Getting started with the Postgres Dockerfile
+## Empty Database
+
+If you just want to instantiate an empty database that you can add data to afterwards, 
+(such as via a data ingestion script) you can use the docker-compose file in the root directory. 
+
+
+## Create your own Postgres image with starter data
 
 The Dockerfile in this directory extends the official postgres image.  The extension copies
 the initial data into the postgres image and when the container is started will load the 
@@ -18,7 +24,7 @@ data.
 ### Steps to get started (assumes you have access to an existing Postgres database)
 
 1. Run `pg_dump --no-owner --no-privileges -F c -f data.dump  --dbname {insert your database}`
-    - alternatively you can use the full connection string `pg_dump --no-owner --no-privileges -F c -f data.dump --dbname=postgresql://postgres:postgres@localhost:5433/housinginsights_lo`
+    - alternatively you can use the full connection string `pg_dump --no-owner --no-privileges -F c -f data.dump --dbname=postgresql://youruser:yourpassword@localhost:5432/yourdatabasename`
 2. Copy the file, `data.dump` into this directory.
 3. Run `docker build . -t codefordc2/{your-project}-postgres`
 

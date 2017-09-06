@@ -3,17 +3,20 @@ version: '2'
 services:
     postgres:
         image: codefordc2/postgres
+
+        #If you edit these, also edit them in the matching environment string in 'web'
         environment:
-            - POSTGRES_PASSWORD=codefordc
-            - POSTGRES_USER=codefordc
-            - POSTGRES_DB=codefordc
+            - POSTGRES_PASSWORD=codefordcpassword
+            - POSTGRES_USER=codefordcuser
+            - POSTGRES_DB=codefordcdatabase
         ports:
             - "5432:5432"
         restart: "on-failure:3"
     web:
         image: sosedoff/pgweb
         environment:
-            - DATABASE_URL=postgres://codefordc:codefordc@postgres:5432/codefordc?sslmode=disable
+            #here 'postgres' corresponds to the service name above, and the three 'codefordcXXX' strings to the environments above.
+            - DATABASE_URL=postgres://codefordcuser:codefordcpassword@postgres:5432/codefordcdatabase?sslmode=disable
         links:
             - postgres
         ports:
