@@ -1,0 +1,7 @@
+name: codefordc
+channels:
+- defaults
+
+dependencies:
+- python=3.6
+- nose
